@@ -58,6 +58,18 @@ namespace P3_Assignment1_LinkedList
         {
             // make a new box holding the number
             Node newNode = new Node(value);
+            // came back to handle special case insert at front of list
+            if (position == 0)
+            {
+                newNode.Next = head; // new box grabs the old first box
+                head = newNode; // "first" sticky attached to new box
+                if (tail == null)  //if the list was empty
+                {
+                    tail = newNode;  // the new box would also be the last box
+                }
+                count++;
+                return;
+            }
             // walk to the box before desired index position keep stepping until reached
             Node? previous = head;
             for (int i = 0; i < position - 1 && previous != null; i++)
@@ -79,6 +91,22 @@ namespace P3_Assignment1_LinkedList
         }
         public void DeleteAt(int position) // what about deleting 15 when you don't know the position number 
         {
+            // back to handle special case of removing position zero
+            if (position == 0)
+            {
+                if (head == null)
+                {
+                    Console.WriteLine("This list is empty hommie.");
+                    return;
+                }
+                head = head.Next; // "first" sticky note moves to second box
+                if (head == null) // if that emptied the list then...
+                {
+                    tail = null; // the last sticky is removed also
+                }
+                count--;
+                return;
+            }
             // following InsertAt to remove elements from linked list
             Node? previous = head;
             for (int i =0; i < position - 1 && previous != null; i++)
